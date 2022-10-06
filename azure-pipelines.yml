@@ -21,18 +21,14 @@ resources:
     name: mshiva70/yam4
     ref: main
     trigger:
-      branches:
-        include:
-        - main
-      paths:
-        include:
-        - terraform/*
+     - main
   - repository: deps
     type: github
     endpoint: github.com_mshiva70
     name: mshiva70/yam3
     ref: main
-    trigger: none
+    trigger:
+     - main
 
 stages:
 - stage: defaultStage
