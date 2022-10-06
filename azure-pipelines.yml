@@ -3,17 +3,59 @@
 # Add steps that build, run tests, deploy, and more:sawd
 # https://aka.ms/yaml
 
-trigger:
-- main
-
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+resources:
+  repositories:
+  - repository: self # The pipeline definition - trigger only on changes to this pipe
+    type: github
+    endpoint: github.com_mshiva70
+    name: mshiva70/CIdemoshiva
+    ref: master
+    trigger: 
+     - main
+  - repository: control # The control-repo - should trigger on changes
+    type: github
+    endpoint: github.com_mshiva70
+    name: mshiva70/yam1
+    ref: main
+    trigger:
+      branches:
+        include:
+        - main
+      paths:
+        include:
+        - terraform_test/*
+  - repository: deps
+    type: github
+    endpoint: github.com_mshiva70
+    name: mshiva70/yam2
+    ref: main
+    trigger: none
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+- stage: defaultStage
+  pool:
+    vmImage: ubuntu-latest
+  jobs:
+  - job: defaultJob
+    workspace:
+      clean: all # (outputs, resources, all)m
+    steps:
+    - checkout: control
+      fetchDepth: 1
+      path: control
+    - checkout: self
+      fetchDepth: 1
+      path: self
+    - checkout: deps
+      fetchDepth: 1
+      path: deps
+    
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo Write your commands here
+          
+          echo Hello world
