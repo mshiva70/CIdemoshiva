@@ -10,21 +10,21 @@ resources:
   repositories:
   - repository: self # The pipeline definition - trigger only on changes to this pipe
     type: github
-    endpoint: github.com_mshiva70
+    endpoint: mshiva70
     name: mshiva70/CIdemoshiva
     ref: main
     trigger: 
      - main
   - repository: control # The control-repo - should trigger on changes
     type: github
-    endpoint: github.com_mshiva70
+    endpoint: mshiva70
     name: mshiva70/yam4
     ref: main
     trigger:
      - main
   - repository: deps
     type: github
-    endpoint: github.com_mshiva70
+    endpoint: mshiva70
     name: mshiva70/yam3
     ref: main
     trigger:
