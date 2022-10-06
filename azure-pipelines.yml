@@ -18,7 +18,7 @@ resources:
   - repository: control # The control-repo - should trigger on changes
     type: github
     endpoint: github.com_mshiva70
-    name: mshiva70/yam1
+    name: mshiva70/yam4
     ref: main
     trigger:
       branches:
@@ -26,11 +26,11 @@ resources:
         - main
       paths:
         include:
-        - terraform_test/*
+        - terraform/*
   - repository: deps
     type: github
     endpoint: github.com_mshiva70
-    name: mshiva70/yam2
+    name: mshiva70/yam3
     ref: main
     trigger: none
 
